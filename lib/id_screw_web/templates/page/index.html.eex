@@ -1,0 +1,15 @@
+ <h2>ID Screw</h2>
+<div id="Player">
+</div>
+<div id="Players">
+</div>
+<div id="borad">
+</div>
+<div id="hand">
+</div>
+<div id="game-form">
+  <form id="enter-form">
+    <input type="text" placeholder="Username" id="user-name"></input>
+    <button type="submit">SingIn</button>
+  </form>
+</div>

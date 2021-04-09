@@ -1,0 +1,17 @@
+{
+    "sessions": {
+        "12" : {
+            "game" : {},
+            "players": [
+                { "id": 1, "name": "Rodolfo", "points": 5, "ready": true},
+                { "id": 21, "name": "Roberto", "points": 5, "ready": true}                  
+            ]
+        },
+        "2222222212" : {
+            "game" : {},
+            "players": [
+                { "id": 1, "name": "Rodolfo", "points": 5, "ready": true}                
+            ]
+        }
+    }
+}
