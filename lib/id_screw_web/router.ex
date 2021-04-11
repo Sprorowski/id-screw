@@ -24,10 +24,9 @@ defmodule IdScrewWeb.Router do
     pipe_through :api
     post "/new_game", Session.UserController, :new_game_session
 
-    scope "/:session", Session , as: :api do
+    scope "/:session", Session, as: :api do
       resources "/user", UserController, only: [:create]
     end
-
   end
 
   # Enables LiveDashboard only for development

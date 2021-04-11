@@ -1,4 +1,6 @@
 defmodule IdScrew.Save do
+  alias IdScrew.Session
+
   def save(session, id) do
     IO.inspect(session)
     {:ok, body} = File.read("game.json")
@@ -19,11 +21,10 @@ defmodule IdScrew.Save do
   end
 
   def find_player_session(session, player_id) do
-
   end
 
   def ready(session_id, player) do
-    session_id |> find_session |> players |> IO.inspect
+    session_id |> find_session |> players |> IO.inspect()
     # |> Enum.with_index() |>  Enum.each(fn {player_b, idx} -> IO.inspect(player_b)  end )
     {:ok}
   end
@@ -33,20 +34,32 @@ defmodule IdScrew.Save do
   end
 
   def save_player(player, session_id) do
-    {:ok, session} = find_session(session_id)
-    session["players"] |> Enum.map(fn {} -> end)
+    {:ok, %{"players" => players} = session} = find_session(session_id)
 
-    players = session["players"] ++ [player]
-    session |> Map.put("players", players) |> save_session(session_id)
+    players =
+      players
+      |> Enum.map(&maybe_update_player(&1, player))
+      |> Enum.concat([player])
+
+    %Session{}
+    |> Session.changeset_applied(%{players: players})
+    |> save_session(session_id)
   end
 
-  def save_session(session, session_id) do
+  def save_session(%Session{} = session, session_id) do
     IO.inspect(session)
     {:ok, body} = File.read("game.json")
     {:ok, base} = Poison.decode(body)
     {:ok, file} = File.open("game.json", [:write])
     base = base |> Map.put("sessions", base["sessions"] |> Map.put(session_id, session))
-    file |> IO.write( Poison.encode!(base))
+    file |> IO.write(Poison.encode!(base))
     {:ok}
   end
+
+  defp maybe_update_player(%{"id" => player_id}, %{"id" => new_player_id} = new_player)
+       when player_id == new_player_id do
+    new_player
+  end
+
+  defp maybe_update_player(player, _), do: player
 end

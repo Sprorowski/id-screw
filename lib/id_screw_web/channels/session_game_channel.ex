@@ -20,25 +20,34 @@ defmodule IdScrewWeb.SessionGameChannel do
   @impl true
   @spec handle_in(<<_::40>>, any, Phoenix.Socket.t()) :: {:noreply, Phoenix.Socket.t()}
   def handle_in("shout", payload, socket) do
-    pl = if payload["id"] == nil do
-      payload|> Map.put("id", :rand.uniform(99999))
-    else
-      payload
-    end
+    pl =
+      if payload["id"] == nil do
+        payload |> Map.put("id", :rand.uniform(99999))
+      else
+        payload
+      end
+
     IO.inspect(pl)
-    broadcast socket, "shout", pl
+    broadcast(socket, "shout", pl)
     {:noreply, socket}
   end
 
   @impl true
   def handle_in("enter", payload, socket) do
     IO.inspect(socket)
-    new_player = %{"id"=> payload["id"], "name" => payload["name"], "points" => 5,"ready" => false}
+
+    new_player = %{
+      "id" => payload["id"],
+      "name" => payload["name"],
+      "points" => 5,
+      "ready" => false
+    }
+
     Save.save_player(new_player, "12")
 
-    {:ok, players}  = "12" |> Save.find |> Save.players
+    {:ok, players} = "12" |> Save.find() |> Save.players()
     payl = payload |> Map.put("player", players)
-    broadcast socket, "players", payl
+    broadcast(socket, "players", payl)
     {:noreply, socket}
   end
 
@@ -48,12 +57,13 @@ defmodule IdScrewWeb.SessionGameChannel do
     session = Save.ready("12", 51021)
 
     IO.inspect(session)
-    broadcast socket, "ready", payload
+    broadcast(socket, "ready", payload)
     {:noreply, socket}
   end
+
   def handle_in("players", payload, socket) do
-    {:ok, players}  = "12" |> Save.find |> Save.players
+    {:ok, players} = "12" |> Save.find() |> Save.players()
     payl = payload |> Map.put("player", players)
-    broadcast socket, "players", payl
+    broadcast(socket, "players", payl)
   end
 end
