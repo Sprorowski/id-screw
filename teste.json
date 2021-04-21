@@ -1,17 +1,95 @@
 {
     "sessions": {
-        "12" : {
-            "game" : {},
-            "players": [
-                { "id": 1, "name": "Rodolfo", "points": 5, "ready": true},
-                { "id": 21, "name": "Roberto", "points": 5, "ready": true}                  
-            ]
+        "2222222212": {
+            "players": [{
+                "ready": true,
+                "points": 5,
+                "name": "Rodolfo",
+                "id": 1
+            }],
+            "game": {}
         },
-        "2222222212" : {
-            "game" : {},
-            "players": [
-                { "id": 1, "name": "Rodolfo", "points": 5, "ready": true}                
-            ]
+        "12": {
+            "players": [{
+                "ready": true,
+                "points": 5,
+                "name": "Roberto",
+                "id": 21
+            },  {
+                "ready": true,
+                "points": 5,
+                "name": "Jogador 1",
+                "id": 5464
+            },{
+                "ready": true,
+                "points": 5,
+                "name": "Jogador 3",
+                "id": 624
+            }, {
+                "ready": true,
+                "points": 5,
+                "name": "Jogador 2",
+                "id": 8604
+            }, {
+                "ready": true,
+                "points": 5,
+                "name": "Player 4",
+                "id": 5480
+            }],
+            "games":  [
+                {
+                    "playing": false,
+                    "round_count": 2,
+                    "rounds": [
+                        {
+                            "jogadas":[
+                                {
+                                    "Vencedor": {"id": 5480, "carta": "AK"}
+                                }
+                            ],
+                            "apostas":[
+                                {
+                                    "jogador_id": 5480,
+                                    "aposta": 1
+                                },{
+                                    "jogador_id": 21,
+                                    "aposta": 0
+                                },{
+                                    "jogador_id": 624,
+                                    "aposta": 0
+                                },{
+                                    "jogador_id": 8604,
+                                    "aposta": 1
+                                }
+
+                            ]
+                        },{
+                            "jogadas":[ 
+                                 {"id": 5480, "carta": "AK"},
+                                 {"id": 624, "carta": "4A"}
+                                
+                            ],
+                            "apostas":[
+                                {
+                                    "jogador_id": 5480,
+                                    "aposta": 1
+                                },{
+                                    "jogador_id": 21,
+                                    "aposta": 0
+                                },{
+                                    "jogador_id": 624,
+                                    "aposta": 0
+                                },{
+                                    "jogador_id": 8604,
+                                    "aposta": 0
+                                }
+
+                            ]
+                        }
+                    ]
+                }       
+            ],
+            "ongame": false
         }
     }
 }

@@ -1,6 +1,4 @@
 defmodule IdScrew.Save do
-  alias IdScrew.Session
-
   def save(session, id) do
     IO.inspect(session)
     {:ok, body} = File.read("game.json")
@@ -20,13 +18,21 @@ defmodule IdScrew.Save do
     end
   end
 
-  def find_player_session(session, player_id) do
+  @spec find_player_session({:ok, map}, any) :: any
+  def find_player_session({:ok, %{"players" => players}}, player_id) do
+    players |> Enum.filter(&player_found(&1, player_id)) |> Enum.at(0)
   end
 
-  def ready(session_id, player) do
-    session_id |> find_session |> players |> IO.inspect()
-    # |> Enum.with_index() |>  Enum.each(fn {player_b, idx} -> IO.inspect(player_b)  end )
-    {:ok}
+  def ready(session_id, player_id) do
+    session = session_id |> find_session
+
+    session
+    |> find_player_session(player_id)
+    |> Map.put("ready", true)
+    |> IO.inspect()
+    |> save_player(session_id)
+
+    {:ok, session}
   end
 
   def players({:ok, %{"players" => players}}) do
@@ -38,16 +44,13 @@ defmodule IdScrew.Save do
 
     players =
       players
-      |> Enum.map(&maybe_update_player(&1, player))
+      |> Enum.filter(&maybe_update_player(&1, player))
       |> Enum.concat([player])
 
-    %Session{}
-    |> Session.changeset_applied(%{players: players})
-    |> save_session(session_id)
+    session |> Map.put("players", players) |> save_session(session_id)
   end
 
-  def save_session(%Session{} = session, session_id) do
-    IO.inspect(session)
+  def save_session(%{} = session, session_id) do
     {:ok, body} = File.read("game.json")
     {:ok, base} = Poison.decode(body)
     {:ok, file} = File.open("game.json", [:write])
@@ -56,10 +59,29 @@ defmodule IdScrew.Save do
     {:ok}
   end
 
-  defp maybe_update_player(%{"id" => player_id}, %{"id" => new_player_id} = new_player)
-       when player_id == new_player_id do
-    new_player
+  defp player_found(%{"id" => player_id}, get_player_id) do
+    player_id == get_player_id
   end
 
-  defp maybe_update_player(player, _), do: player
+  defp maybe_update_player(%{"id" => player_id}, %{"id" => new_player_id})
+       when player_id == new_player_id do
+    false
+  end
+
+  defp maybe_update_player(player, _), do: true
+
+  def save_game(game, session_id) do
+    {:ok, %{"games" => games} = session} = find_session(session_id) |> IO.inspect
+    games =
+      games
+      |> Enum.filter(&maybe_update_game(&1))
+      |> Enum.concat([game])
+    session |> Map.put("games", games)|> IO.inspect |> save_session(session_id)
+  end
+
+  defp maybe_update_game(%{"playing" => playing}) when playing do
+    false
+  end
+
+  defp maybe_update_game(game), do: true
 end

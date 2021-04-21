@@ -1,15 +1,74 @@
- <h2>ID Screw</h2>
-<div id="Player">
-</div>
-<div id="Players">
-</div>
-<div id="borad">
-</div>
-<div id="hand">
-</div>
-<div id="game-form">
-  <form id="enter-form">
-    <input type="text" placeholder="Username" id="user-name"></input>
-    <button type="submit">SingIn</button>
-  </form>
+<div id="game-content">
+
+  <h2>ID Screw</h2>
+  <div id="Player">
+  </div>
+  <div id="Players">
+  </div>
+  <div id="borad">
+    <div id="table">
+      <div class="row">
+        <div class="col-3">
+          Roberto: AO
+        </div>
+        <div class="col-3">
+          Jogador 1: AO
+        </div>
+        <div class="col-3">
+          Jogador 3: AO
+        </div>
+        <div class="col-3">
+          Jogador 2: AO
+        </div>
+        <div class="col-3">
+          Player 1: AO
+        </div>
+        <div class="col-3">
+          Roberto: AO
+        </div>
+        <div class="col-3">
+          Jogador 1: AO
+        </div>
+        <div class="col-3">
+          Jogador 3: AO
+        </div>
+        <div class="col-3">
+          Jogador 2: AO
+        </div>
+        <div class="col-3">
+          Player 1: AO
+        </div>
+
+      </div>
+
+    </div>
+    Vira:
+    <div id="vira">40</div>
+
+    Mão:
+    <div id="hand">
+      <form>
+        <input type="button" value="22" class="handInput" disabled="">
+        <input type="button" value="16" class="handInput" disabled="">
+        <input type="button" value="7" class="handInput" disabled="">
+        <input type="button" value="18" class="handInput" disabled="">
+        <input type="button" value="8" class="handInput" disabled="">
+        <input type="button" value="24" class="handInput" disabled="">
+        <input type="button" value="20" class="handInput" disabled="">
+      </form>
+
+    </div>
+  </div>
+  <div id="game-form">
+    <form id="enter-form">
+
+      <input type="text" placeholder="Username" id="user-name"></input>
+      <button type="submit">SingIn</button>
+    </form>
+  </div>
+
+
+
+  <button id="dosomething">dosomething</button>
+
 </div>

@@ -34,3 +34,39 @@
   display: block;
   margin: -1rem 0 2rem;
 }
+
+
+
+body{
+  #game-content{
+    width: 80%;
+    margin: 0 auto;
+
+    #Players{
+      p{
+        margin: 0;
+      }
+    }
+
+    #borad{
+      border: 1px solid black;
+      width: 600px;
+      padding: 5px;
+      #table{
+        .play{
+          width: 60px;
+          text-align: center;
+          border: 1px solid grey;
+        }
+
+      }
+      #vira{
+
+      }
+      #hand{
+
+      }
+    }
+
+  }
+}
